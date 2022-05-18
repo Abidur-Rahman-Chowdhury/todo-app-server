@@ -32,6 +32,14 @@ async function run() {
             const result = await todoCollection.insertOne(todo);
             res.send(result);
         })
+        // get todo form server 
+        app.get('/todo', async (req, res) => {
+            const email = req.query.email;
+            const query = { user: email}
+            const cursor = todoCollection.find(query);
+            const result = await cursor.toArray();
+            res.send(result);
+        })
         
     }
     finally {
